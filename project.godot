@@ -27,6 +27,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="ProtoZelda"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 move_right={
