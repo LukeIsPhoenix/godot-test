@@ -9,7 +9,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if can_move:
 		velocity = Vector2.ZERO # The player's movement vector
 		
@@ -68,7 +68,6 @@ func walk(animation):
 
 func attack(animation):
 	can_move = false
-	$AnimatedSprite2D.stop()
 	var previousAnimation = $AnimatedSprite2D.animation
 	$AnimatedSprite2D.play(animation, 3)
 	await $AnimatedSprite2D.animation_finished
