@@ -44,12 +44,26 @@ func _physics_process(delta):
 			"walk_down": "attack_down"
 		}
 		
+		var attack_hitbox_map = {
+			"attack_right": $Hitbox/Right,
+			"attack_left": $Hitbox/Left,
+			"attack_up": $Hitbox/Up,
+			"attack_down": $Hitbox/Down
+		}
+		
+		for attack_direction in attack_hitbox_map.keys():
+			attack_hitbox_map[attack_direction].disabled = true
+		
 		# Check for correct attack direction then attack with the correct animation
-		for direction in attack_animation_map.keys():
+		for move_direction in attack_animation_map.keys():
 			if Input.is_action_just_pressed("attack"):
-				if $AnimatedSprite2D.animation == direction:
-					attack(attack_animation_map[direction])
-					break
+				if $AnimatedSprite2D.animation == move_direction:
+					for attack_direction in attack_hitbox_map.keys():
+						if attack_animation_map[move_direction] == attack_direction:
+							attack_hitbox_map[attack_direction].disabled = false
+							await attack(attack_animation_map[move_direction])
+							attack_hitbox_map[attack_direction].disabled = true
+							break
 		
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
