@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://byvhhvkverqdn"]
+
+[ext_resource type="Texture2D" uid="uid://vfhrawa7ohqw" path="res://Art/Characters/NPC_test.png" id="1_i4amo"]
+[ext_resource type="Script" path="res://Scripts/Character Scripts/Enemy/TestEnemy/TestEnemy.gd" id="1_ooi51"]
+[ext_resource type="Script" path="res://Scripts/Hurtbox.gd" id="2_kgjpb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5t33"]
+size = Vector2(16, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ko8j"]
+atlas = ExtResource("1_i4amo")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2b05"]
+atlas = ExtResource("1_i4amo")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibgyl"]
+atlas = ExtResource("1_i4amo")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnghn"]
+atlas = ExtResource("1_i4amo")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j7d0a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ko8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2b05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibgyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnghn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TestEnemy" type="CharacterBody2D"]
+script = ExtResource("1_ooi51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_i5t33")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j7d0a")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("2_kgjpb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_i5t33")
