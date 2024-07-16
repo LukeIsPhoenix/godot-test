@@ -13,27 +13,24 @@ func _physics_process(delta):
 	if can_move:
 		velocity = Vector2.ZERO # The player's movement vector
 		
-		# Translate movement to vectors
-		var walk_movement_map = {
-			"move_right": Vector2(1, 0),
-			"move_left": Vector2(-1, 0),
-			"move_up": Vector2(0, -1),
-			"move_down": Vector2(0, 1)
-		}
+		# Get movement input and set velocity
+		var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		if direction:
+			velocity = direction
 		
-		# Translate movement to animations
+		# Translate vector to animations
 		var walk_animation_map = {
-			"move_right": "walk_right",
-			"move_left": "walk_left",
-			"move_up": "walk_up",
-			"move_down": "walk_down"
+			Vector2(1, 0): "walk_right",
+			Vector2(-1, 0): "walk_left",
+			Vector2(0, -1): "walk_up",
+			Vector2(0, 1): "walk_down"
 		}
 		
 		# Check all through all walk options then move with the correct animation
-		for input in walk_movement_map.keys():
-			if Input.is_action_pressed(input):
-				velocity += walk_movement_map[input]
+		for input in walk_animation_map.keys():
+			if velocity == input:
 				walk(walk_animation_map[input])
+				print(velocity)
 				break
 		
 		# Translate movement directions to attack directions
