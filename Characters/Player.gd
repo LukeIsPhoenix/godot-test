@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
-@export var speed = 0.64 # How fast the player will move (pixels/sec).
+@export var speed = 64 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
-var is_attacking = false
 var can_move = true
 
 # Called when the node enters the scene tree for the first time.
@@ -54,27 +53,24 @@ func _process(delta):
 		
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
-		elif $AnimatedSprite2D.is_playing() && !is_attacking:
+		elif $AnimatedSprite2D.is_playing():
 			$AnimatedSprite2D.stop()
 		
 		#position += velocity * delta
-		move_and_collide(velocity)
+		move_and_collide(velocity * delta)
 		position = position.clamp(Vector2.ZERO, screen_size)
 
 func walk(animation):
-	if !is_attacking:
-		$AnimatedSprite2D.animation = animation
-		if !$AnimatedSprite2D.is_playing():
-			$AnimatedSprite2D.frame = 3
-		$AnimatedSprite2D.play(animation)
+	$AnimatedSprite2D.animation = animation
+	if !$AnimatedSprite2D.is_playing():
+		$AnimatedSprite2D.frame = 3
+	$AnimatedSprite2D.play(animation)
 
 func attack(animation):
 	can_move = false
 	$AnimatedSprite2D.stop()
-	is_attacking = true
 	var previousAnimation = $AnimatedSprite2D.animation
 	$AnimatedSprite2D.play(animation, 3)
 	await $AnimatedSprite2D.animation_finished
 	$AnimatedSprite2D.animation = previousAnimation
-	is_attacking = false
 	can_move = true
