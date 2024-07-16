@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://lygssuk7almk"]
+[gd_scene load_steps=42 format=3 uid="uid://lygssuk7almk"]
 
-[ext_resource type="Script" path="res://Characters/Player.gd" id="1_db2or"]
-[ext_resource type="Texture2D" uid="uid://hwbq8kgc6tsd" path="res://Art/character.png" id="2_7bhkm"]
+[ext_resource type="Script" path="res://Characters/Player.gd" id="1_ovp81"]
+[ext_resource type="Texture2D" uid="uid://hwbq8kgc6tsd" path="res://Art/Characters/character.png" id="2_7bhkm"]
+[ext_resource type="Script" path="res://Scripts/Hitbox.gd" id="3_n7r7q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a3ye3"]
 atlas = ExtResource("2_7bhkm")
@@ -273,16 +274,50 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ytia"]
 size = Vector2(15.76, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14ewa"]
+size = Vector2(16, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jsr2"]
+size = Vector2(16, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbspc"]
+size = Vector2(9.77834, 19.1855)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stec7"]
+size = Vector2(2.05885, 15.9628)
+
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_db2or")
+script = ExtResource("1_ovp81")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1, 1.03047)
 sprite_frames = SubResource("SpriteFrames_02x41")
-animation = &"walk_right"
+animation = &"walk_down"
 autoplay = "walk_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 6.5)
+position = Vector2(0, 6)
 scale = Vector2(1.01523, 1)
 shape = SubResource("RectangleShape2D_3ytia")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_n7r7q")
+
+[node name="Up" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_14ewa")
+
+[node name="Down" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_6jsr2")
+
+[node name="Left" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-11, 1.5)
+scale = Vector2(0.818134, 0.886085)
+shape = SubResource("RectangleShape2D_sbspc")
+
+[node name="Right" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(10, 2)
+scale = Vector2(3.39996, 1.06498)
+shape = SubResource("RectangleShape2D_stec7")
