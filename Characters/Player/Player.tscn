@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://lygssuk7almk"]
 
-[ext_resource type="Script" path="res://Characters/Player.gd" id="1_ovp81"]
+[ext_resource type="Script" path="res://Scripts/Character Scripts/Player/Player.gd" id="1_ovp81"]
 [ext_resource type="Texture2D" uid="uid://hwbq8kgc6tsd" path="res://Art/Characters/character.png" id="2_7bhkm"]
 [ext_resource type="Script" path="res://Scripts/Hitbox.gd" id="3_n7r7q"]
 
